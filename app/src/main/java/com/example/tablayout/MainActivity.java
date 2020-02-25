@@ -1,12 +1,11 @@
 package com.example.tablayout;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-
 import com.google.android.material.tabs.TabLayout;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,26 +22,24 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab ( tabLayout.newTab ().setText ( "Popular" ) );
         tabLayout.addTab ( tabLayout.newTab ().setText ( "TopRated" ) );
         tabLayout.addTab ( tabLayout.newTab ().setText ( "Upcomming" ) );
+//        tabLayout.addTab ( tabLayout.newTab ().setText ( "Upcomming1" ) );
+//        tabLayout.addTab ( tabLayout.newTab ().setText ( "Upcomming2" ) );
         tabLayout.setTabGravity ( TabLayout.GRAVITY_FILL );
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter ( this, tabLayout.getTabCount () );
-        viewPager.setAdapter ( viewPagerAdapter );
-        viewPager.addOnPageChangeListener ( new ViewPager.OnPageChangeListener () {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter ( this, getSupportFragmentManager (), tabLayout.getTabCount () );
 
-            }
+        viewPager.setAdapter ( new ViewPagerAdapter ( getSupportFragmentManager (), tabLayout.getTabCount () ) );
 
-            @Override
-            public void onPageSelected(int position) {
+        //run all fragments at a same time(agar three hai to three pass krna hai... five hai to five)
 
-            }
+        viewPager.setOffscreenPageLimit ( 3 );
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+        //when page changed
 
-            }
-        } );
+        viewPager.addOnPageChangeListener ( new TabLayout.TabLayoutOnPageChangeListener ( tabLayout ) );
+
+        // When tab is changed
+
         tabLayout.setOnTabSelectedListener ( new TabLayout.OnTabSelectedListener () {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

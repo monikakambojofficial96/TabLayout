@@ -1,26 +1,19 @@
 package com.example.tablayout;
 
-import android.app.Activity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    private Activity context;
-    int tabCount;
+    private int tabCount;
 
-    private LayoutInflater liViewAdapter;
-
-
-    public ViewPagerAdapter(MainActivity context, int tabCount) {
-        this.context = context;
+   public ViewPagerAdapter(FragmentManager fragmentManager, int tabCount) {
+        super ( fragmentManager );
         this.tabCount = tabCount;
-        liViewAdapter = LayoutInflater.from ( context );
     }
 
     @Override
@@ -31,20 +24,24 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View adapterView = liViewAdapter.inflate ( R.layout.item_view_adapter, container, false );
-        ((TextView) adapterView.findViewById ( R.id.textView )).setText ( "This is in adapter " + position );
-        container.addView ( adapterView );
-        return adapterView;
-    }
+    public Fragment getItem(int position) {
+        Log.i(">>>>>>>>>>>>>",">>>>>>>>>>>>>  inside get item  " + position);
+        switch (position) {
+            case 0:
+                return new PopularFragment ();
+            case 1:
+                return  new TopRatedFragment ();
+            case 2:
+                return new UpcomingFragment ();
+//            case 3:
+//                return new PopularFragment ();                           //Agar same data dikana hai to ek hi fragement use krege or uski type pass krege but agar diffent data dikana hai
+                                                                           // jitni trha ka data hai unsb k liye utne hi fragments bnege
+//            case 4:
+//                return new TopRatedFragment ();
+            default: {
+                return null;
+            }
 
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView ( (View) object );
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+        }
     }
 }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TabLayout</string>
+    <string name="popular_movie">This is for Popular Movies</string>
+    <string name="top_rated">This is for Top Rated Movies</string>
+    <string name="upcoming_movies">This is for Upcoming Movies</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
 </resources>
